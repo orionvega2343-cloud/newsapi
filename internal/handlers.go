@@ -50,3 +50,19 @@ func (h *Handler) GetArticle(c *gin.Context) {
 	c.JSON(200, gin.H{"article": res})
 
 }
+
+func (h *Handler) FetchNews(c *gin.Context) {
+	res, err := Parse(c.Query("url"))
+	if err != nil {
+		c.AbortWithStatus(500)
+		return
+	}
+	for _, p := range res {
+		err := h.s.SaveArticles(p)
+		if err != nil {
+			c.AbortWithStatus(500)
+			return
+		}
+	}
+	c.JSON(200, gin.H{"news": res})
+}

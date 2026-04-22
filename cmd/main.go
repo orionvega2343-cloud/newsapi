@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 )
 
 func main() {
@@ -32,6 +33,7 @@ func main() {
 	authorized := r.Group("/")
 	authorized.Use(internal.AuthMiddleware())
 	authorized.GET("/news", res.GetArticle)
-	r.Run(os.Getenv("DB_PORT"))
+	authorized.POST("/news/fetch", res.FetchNews)
+	r.Run(os.Getenv("SERVER_PORT"))
 
 }
