@@ -16,3 +16,8 @@ type User struct {
 	PasswordHash string    `db:"password_hash" json:"-"`
 	CreatedAt    time.Time `db:"created_at" json:"created_at"`
 }
+
+type req struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}

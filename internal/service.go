@@ -56,3 +56,15 @@ func (s *Service) Login(email string, password string) (string, error) {
 	return token, nil
 
 }
+
+func (s *Service) GetArticles() ([]Article, error) {
+	return s.repo.GetArticles()
+}
+
+func (s *Service) SaveArticles(a Article) error {
+	err := s.repo.SaveArticle(a)
+	if err != nil {
+		return err
+	}
+	return nil
+}
